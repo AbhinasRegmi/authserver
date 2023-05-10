@@ -8,4 +8,4 @@ class ResponsePayload(BaseSettings):
 
 
 class GoogleResponsePayload(ResponsePayload):
-    valid: bool = Field(default=False)
+    verified: bool = Field(default=True)

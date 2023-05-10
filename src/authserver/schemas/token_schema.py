@@ -8,3 +8,11 @@ class ResponseToken(BaseModel):
 
     class Config:
         frozen = True
+
+
+class GoogleResponseToken(BaseModel):
+    access_token: str = Field(...)
+    id_token: str = Field(...)
+
+    class Config:
+        frozen = True

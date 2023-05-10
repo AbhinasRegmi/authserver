@@ -13,4 +13,5 @@ dependencies = [
 	"gunicorn",
 	"python-dotenv",
 	"httpx",
+	"python-jose",
 ]
