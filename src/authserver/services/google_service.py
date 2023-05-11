@@ -10,7 +10,7 @@ from authserver.services.exceptions import InvalidAccessTokenGoogleError
 
 class GoogleServices:
     @classmethod
-    def get_consent_form_url(cls) -> str:
+    def get_consent_form_url(cls, referer: str) -> str:
         """
         Build the required  request with appropriate scopes and parameters to show
         consent screen to the end user. It will return the url of consent form.
@@ -25,9 +25,10 @@ class GoogleServices:
             "scope": " ".join(
                 [
                     settings.GOOGLE_PROFILE_SCOPE_URL,
-                    settings.GOOGLE_EMAIL_SCOPE_URL
+                    settings.GOOGLE_EMAIL_SCOPE_URL,
                 ]
-            )
+            ),
+            "state": referer
         }
 
         consent_url = httpx.Client().build_request(method="GET", url=settings.GOOGLE_OAUTH_ROOT_URL, headers=HEADERS, params=params).url
@@ -59,6 +60,7 @@ class GoogleServices:
                 response = await client.post(url=settings.GOOGLE_OAUTH_TOKEN_URL, headers=HEADERS, params=params)
 
             response_json = response.json()
+
 
             return GoogleResponseToken(
                 access_token=response_json['access_token'],
