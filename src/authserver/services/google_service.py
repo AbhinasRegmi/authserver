@@ -80,7 +80,6 @@ class GoogleServices:
         google_payload = jwt.get_unverified_claims(token.id_token)
 
         return GoogleResponsePayload(
-            username='-',
             email=EmailStr(google_payload['email']),
             avatar=AnyHttpUrl(url=google_payload['picture'], scheme="https")
         )
@@ -106,7 +105,6 @@ class GoogleServices:
             response_json = response.json()
 
             return GoogleResponsePayload(
-                username=response_json['name'],
                 email=EmailStr(response_json['email']),
                 avatar=AnyHttpUrl(response_json['picture'], scheme='https'),
                 verified=response_json['verified_email']

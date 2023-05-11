@@ -8,7 +8,7 @@ user_router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @user_router.get("/detail")
-def user_detail_from_google(username: str = Query(...), email: EmailStr = Query(...), avatar: AnyHttpUrl = Query(...), verified: bool = Query(...)) -> GoogleResponsePayload:
+def user_detail_from_google(email: EmailStr = Query(...), avatar: AnyHttpUrl = Query(...), verified: bool = Query(...)) -> GoogleResponsePayload:
     """
     This is internal router external apis shouldn't make request directly.
     Authserver will automatically redirect all logins here.
@@ -18,7 +18,6 @@ def user_detail_from_google(username: str = Query(...), email: EmailStr = Query(
     query params must be propagated to `login_with_google_callback` handler.
     """
     return GoogleResponsePayload(
-        username=username,
         email=email,
         avatar=avatar,
         verified=verified

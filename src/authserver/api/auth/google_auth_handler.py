@@ -1,9 +1,11 @@
 from fastapi import APIRouter, Query
-from pydantic import AnyHttpUrl
+from pydantic import AnyHttpUrl, EmailStr
 from fastapi.responses import RedirectResponse
 
-from authserver.services.google_service import GoogleServices
 from authserver.core.config import settings
+from authserver.services.auth_service import TokenService
+from authserver.schemas.payload_schema import GoogleResponsePayload
+from authserver.services.google_service import GoogleServices
 
 google_auth_router = APIRouter(prefix="/auth", tags=["Auth"])
 
@@ -26,9 +28,9 @@ async def login_with_google_callback(code: str = Query(...), state: AnyHttpUrl =
     user_detail = await GoogleServices.get_user_details_from_google(google_token_response)
     # user_detail = GoogleServices.get_user_detail_from_token(google_token_response)
 
+    response_token = TokenService.get_tokens(user_detail.dict())
 
     # make sure the query params are correct
     return RedirectResponse(
-        url=settings.AUTHSERVER_USER_DETAIL_PATH
-        + f"?username={user_detail.username}&email={user_detail.email}&avatar={user_detail.avatar}&verified={user_detail.verified}"
+        url=state + f"?access_token={response_token.access_token}&refresh_token={response_token.refresh_token}&token_type={response_token.token_type}"
     )

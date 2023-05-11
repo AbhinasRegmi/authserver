@@ -1,11 +1,10 @@
 from pydantic import BaseSettings, EmailStr, AnyHttpUrl, Field
 
 
-class ResponsePayload(BaseSettings):
-    username: str = Field(...)
+class JWTPayload(BaseSettings):
     email: EmailStr = Field(...)
     avatar: AnyHttpUrl = Field(...)
 
 
-class GoogleResponsePayload(ResponsePayload):
+class GoogleResponsePayload(JWTPayload):
     verified: bool = Field(default=True)

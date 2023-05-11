@@ -14,6 +14,11 @@ class Settings(BaseSettings):
         AnyUrl(url="https://abhinasregmi.com.np", scheme="https"),
         AnyUrl(url="https://abhinasregmi.com.np/convert", scheme="https")
     ]
+
+    # jwt constants
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRATION: int = 15  # 15 minutes
+    REFRESH_TOKEN_EXPIRATION: int = 7 * 24 * 60  # 7 days
     
     # google api endpoints
     GOOGLE_OAUTH_ROOT_URL: AnyUrl = AnyUrl("https://accounts.google.com/o/oauth2/v2/auth", scheme="https")
@@ -32,6 +37,10 @@ class Settings(BaseSettings):
     # google keys 
     GOOGLE_CLIENT_ID: str
     GOOGLE_CLIENT_SECRET: str
+
+    # jwt secrets
+    JWT_ACCESS_SECRET: str
+    JWT_REFRESH_SECRET: str
 
 
 
