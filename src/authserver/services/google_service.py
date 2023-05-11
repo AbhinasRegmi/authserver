@@ -103,8 +103,6 @@ class GoogleServices:
 
             response_json = response.json()
 
-            print(response_json)
-
             return GoogleResponsePayload(
                 username=response_json['name'],
                 email=EmailStr(response_json['email']),

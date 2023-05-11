@@ -1,3 +1,4 @@
+from typing import List
 from functools import lru_cache
 
 from pydantic import BaseSettings, AnyUrl
@@ -8,6 +9,11 @@ class Settings(BaseSettings):
         env_file = ".env"
         case_sensitive = True
     
+    CORS_ALLOWED_ORIGINS: List[AnyUrl] = [
+        AnyUrl(url="http://localhost:5500", scheme="http"),
+        AnyUrl(url="https://abhinasregmi.com.np", scheme="https"),
+        AnyUrl(url="https://abhinasregmi.com.np/convert", scheme="https")
+    ]
     
     # google api endpoints
     GOOGLE_OAUTH_ROOT_URL: AnyUrl = AnyUrl("https://accounts.google.com/o/oauth2/v2/auth", scheme="https")
