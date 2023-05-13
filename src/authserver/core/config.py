@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     JWT_ACCESS_SECRET: str
     JWT_REFRESH_SECRET: str
 
+    # db connection uris
+    POSTGRESQL_DB_URI: str
+
 
 
 @lru_cache(maxsize=128)
